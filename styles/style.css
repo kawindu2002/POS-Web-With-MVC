@@ -1,0 +1,42 @@
+.page-section {
+    display: none; /* Hide all sections by default */
+}
+.page-section.active {
+    display: block; /* Show the active section */
+}
+
+.card-button {
+    cursor: pointer;
+    transition: transform 0.5s ease-in-out;
+}
+.card-button:hover {
+    transform: scale(1.05);
+}
+
+.form-section {
+    margin-bottom: 2rem;
+}
+
+.action-buttons {
+    margin-top: 1rem;
+}
+.order-item {
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+}
+.quantity-control {
+    display: flex;
+    align-items: center;
+}
+.quantity-btn {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.quantity-input {
+    width: 50px;
+    text-align: center;
+    margin: 0 5px;
+}

@@ -1,0 +1,487 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" >
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+        <title>KPOS</title>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        <link rel="stylesheet" href="styles/style.css">
+
+    </head>
+    <body>
+
+        <!--Nav Bar-->
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#" data-target="homepage">KPOS</a>
+                <button   class="navbar-toggler"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#navbarNav"
+                          aria-controls="navbarNav"
+                          aria-expanded="false"
+                          aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active"
+                               aria-current="page"
+                               href="#"
+                               data-target="homepage"
+                            >Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-target="customer-page"
+                            >Customers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-target="item-page">Items</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-target="order-page">New Order</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-target="order-history-page"
+                            >Order History</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container mt-4">
+
+        <!--Homepage Section-->
+
+            <div id="homepage" class="page-section ">
+                <h1 class="mb-4">Welcome to KPOS</h1>
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    <div class="col">
+                        <div class="card text-center h-100 card-button" data-target="customer-page">
+                            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                                <i class="fas fa-users fa-4x mb-3 text-primary"></i>
+                                <h5 class="card-title">Customers</h5>
+                                <p class="card-text">Manage customer details.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="card text-center h-100 card-button" data-target="item-page">
+                            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                                <i class="fas fa-box-open fa-4x mb-3 text-success"></i>
+                                <h5 class="card-title">Items</h5>
+                                <p class="card-text">Manage product inventory.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="card text-center h-100 card-button" data-target="order-page">
+                            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                                <i class="fas fa-cash-register fa-4x mb-3 text-danger"></i>
+                                <h5 class="card-title">New Order</h5>
+                                <p class="card-text">Process a new sale.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="card text-center h-100 card-button" data-target="order-history-page">
+                            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                                <i class="fas fa-history fa-4x mb-3 text-warning"></i>
+                                <h5 class="card-title">Order History</h5>
+                                <p class="card-text">View past orders.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <!--Customer Management Section-->
+
+            <div id="customer-page" class="page-section active">
+                <h1 class="mb-4">Customer Management</h1>
+
+                <div class="card mb-4">
+                    <div class="card-header">Customer Details</div>
+                    <div class="card-body">
+
+                        <!-- Customer Form-->
+                        <form id="customerForm">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="customerIdInput" class="form-label">Customer ID</label>
+                                    <input type="text" class="form-control" id="customerIdInput" disabled>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="customerNameInput" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="customerNameInput" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="customerEmailInput" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="customerEmailInput">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="customerPhoneInput" class="form-label">Phone</label>
+                                    <input type="tel" class="form-control" id="customerPhoneInput">
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="customerAddressInput" class="form-label">Address</label>
+                                    <input type="text" class="form-control" id="customerAddressInput">
+                                </div>
+                                <div class="col-12 action-buttons">
+                                    <button type="button" class="btn btn-success me-2" id="saveCustomerBtn"><i class="fas fa-save"></i> Save</button>
+                                    <button type="button" class="btn btn-warning me-2" id="updateCustomerBtn" disabled><i class="fas fa-edit"></i> Update</button>
+                                    <button type="button" class="btn btn-danger me-2" id="deleteCustomerBtn" disabled><i class="fas fa-trash-alt"></i> Delete</button>
+                                    <button type="button" class="btn btn-secondary" id="resetCustomerBtn"><i class="fas fa-sync-alt"></i> Reset</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            <!-- Customer Table-->
+                <div class="card">
+                    <div class="card-header">Customer List</div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Phone</th>
+                                    <th scope="col">Address</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody id="customerTableBody">
+
+<!--                                <tr data-id="C001" data-name="John Doe" data-email="john@example.com" data-phone="123-456-7890" data-address="123 Main St">-->
+<!--                                    <td>C001</td>-->
+<!--                                    <td>John Doe</td>-->
+<!--                                    <td>john@example.com</td>-->
+<!--                                    <td>123-456-7890</td>-->
+<!--                                    <td>123 Main St</td>-->
+<!--                                    <td>-->
+<!--                                        <button class="btn btn-sm btn-info view-customer me-1"><i class="fas fa-eye"></i> View</button>-->
+<!--                                        <button class="btn btn-sm btn-warning edit-customer me-1"><i class="fas fa-edit"></i> Edit</button>-->
+<!--                                        <button class="btn btn-sm btn-danger delete-customer"><i class="fas fa-trash-alt"></i> Delete</button>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                                <tr data-id="C002" data-name="Jane Smith" data-email="jane@example.com" data-phone="987-654-3210" data-address="456 Oak Ave">-->
+<!--                                    <td>C002</td>-->
+<!--                                    <td>Jane Smith</td>-->
+<!--                                    <td>jane@example.com</td>-->
+<!--                                    <td>987-654-3210</td>-->
+<!--                                    <td>456 Oak Ave</td>-->
+<!--                                    <td>-->
+<!--                                        <button class="btn btn-sm btn-info view-customer me-1"><i class="fas fa-eye"></i> View</button>-->
+<!--                                        <button class="btn btn-sm btn-warning edit-customer me-1"><i class="fas fa-edit"></i> Edit</button>-->
+<!--                                        <button class="btn btn-sm btn-danger delete-customer"><i class="fas fa-trash-alt"></i> Delete</button>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <!--Item Management Section-->
+
+            <div id="item-page" class="page-section ">
+                <h1 class="mb-4">Item Management</h1>
+
+
+                <div class="card mb-4">
+                    <div class="card-header">Item Details</div>
+                    <div class="card-body">
+
+                        <!-- Item Form-->
+                        <form id="itemForm">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="itemCodeInput" class="form-label">Item Code</label>
+                                    <input type="text" class="form-control" id="itemCodeInput" disabled>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="itemNameInput" class="form-label">Item Name</label>
+                                    <input type="text" class="form-control" id="itemNameInput" required>
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="itemDescriptionInput" class="form-label">Description</label>
+                                    <textarea class="form-control" id="itemDescriptionInput" rows="2"></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="itemPriceInput" class="form-label">Price</label>
+                                    <input type="number" class="form-control" id="itemPriceInput" step="0.01" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="itemQuantityInput" class="form-label">Quantity on Hand</label>
+                                    <input type="number" class="form-control" id="itemQuantityInput" required>
+                                </div>
+                                <div class="col-12 action-buttons">
+                                    <button type="button" class="btn btn-success me-2" id="saveItemBtn"><i class="fas fa-save"></i> Save</button>
+                                    <button type="button" class="btn btn-warning me-2" id="updateItemBtn" disabled><i class="fas fa-edit"></i> Update</button>
+                                    <button type="button" class="btn btn-danger me-2" id="deleteItemBtn" disabled><i class="fas fa-trash-alt"></i> Delete</button>
+                                    <button type="button" class="btn btn-secondary" id="resetItemBtn"><i class="fas fa-sync-alt"></i> Reset</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Item Table-->
+                <div class="card">
+                    <div class="card-header">Item List</div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Code</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody id="itemTableBody">
+
+<!--                                <tr data-code="I001" data-name="Laptop" data-price="1200.00" data-quantity="15" data-description="High performance laptop">-->
+<!--                                    <td>I001</td>-->
+<!--                                    <td>Laptop</td>-->
+<!--                                    <td>1200.00</td>-->
+<!--                                    <td>15</td>-->
+<!--                                    <td>-->
+<!--                                        <button class="btn btn-sm btn-info view-item me-1"><i class="fas fa-eye"></i> View</button>-->
+<!--                                        <button class="btn btn-sm btn-warning edit-item me-1"><i class="fas fa-edit"></i> Edit</button>-->
+<!--                                        <button class="btn btn-sm btn-danger delete-item"><i class="fas fa-trash-alt"></i> Delete</button>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                                <tr data-code="I002" data-name="Mouse" data-price="25.50" data-quantity="150" data-description="Wireless ergonomic mouse">-->
+<!--                                    <td>I002</td>-->
+<!--                                    <td>Mouse</td>-->
+<!--                                    <td>25.50</td>-->
+<!--                                    <td>150</td>-->
+<!--                                    <td>-->
+<!--                                        <button class="btn btn-sm btn-info view-item me-1"><i class="fas fa-eye"></i> View</button>-->
+<!--                                        <button class="btn btn-sm btn-warning edit-item me-1"><i class="fas fa-edit"></i> Edit</button>-->
+<!--                                        <button class="btn btn-sm btn-danger delete-item"><i class="fas fa-trash-alt"></i> Delete</button>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <!--Order Management Section-->
+
+            <div id="order-page" class="page-section ">
+                <h1 class="mb-4">New Order</h1>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card mb-4">
+                            <div class="card-header bg-warning text-white">
+                                <h5 class="mb-0">Select Items</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Search items..." id="orderItemSearchInput">
+                                    <button class="btn btn-outline-secondary" type="button">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+
+                                <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>Code</th>
+                                            <th>Item</th>
+                                            <th>Price</th>
+                                            <th>Stock</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="availableItemsTableBody">
+
+                                        <tr data-code="I001" data-name="Laptop" data-price="1200.00" data-quantity="15">
+                                            <td>I001</td>
+                                            <td>Laptop</td>
+                                            <td>1200.00</td>
+                                            <td>15</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-success add-item-to-order" data-code="I001">
+                                                    <i class="fas fa-plus"></i> Add
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr data-code="I002" data-name="Mouse" data-price="25.50" data-quantity="150">
+                                            <td>I002</td>
+                                            <td>Mouse</td>
+                                            <td>25.50</td>
+                                            <td>150</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-success add-item-to-order" data-code="I002">
+                                                    <i class="fas fa-plus"></i> Add
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr data-code="I003" data-name="Keyboard" data-price="49.99" data-quantity="30">
+                                            <td>I003</td>
+                                            <td>Keyboard</td>
+                                            <td>49.99</td>
+                                            <td>30</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-success add-item-to-order" data-code="I003">
+                                                    <i class="fas fa-plus"></i> Add
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr data-code="I004" data-name="Monitor" data-price="199.99" data-quantity="10">
+                                            <td>I004</td>
+                                            <td>Monitor</td>
+                                            <td>199.99</td>
+                                            <td>10</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-success add-item-to-order" data-code="I004">
+                                                    <i class="fas fa-plus"></i> Add
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <div class="card-header bg-warning text-white">
+                                <h5 class="mb-0">Order Summary</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="orderCustomerSelect" class="form-label">Customer</label>
+                                    <select class="form-select" id="orderCustomerSelect">
+                                        <option value="" selected disabled>Select Customer</option>
+
+                                        <option value="C001">John Doe (C001)</option>
+                                        <option value="C002">Jane Smith (C002)</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="orderDateInput" class="form-label">Date</label>
+                                    <input type="date" class="form-control" id="orderDateInput" disabled>
+                                </div>
+
+                                <h6>Items in Order:</h6>
+                                <div id="orderItemsList" style="max-height: 200px; overflow-y: auto;">
+
+                                    <div class="text-muted text-center py-3">No items added yet</div>
+                                </div>
+
+                                <div class="border-top pt-3 mt-3">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Subtotal:</span>
+                                        <span id="orderSubtotal">$0.00</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Tax (10%):</span>
+                                        <span id="orderTax">$0.00</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between fw-bold">
+                                        <span>Total:</span>
+                                        <span id="orderTotal">$0.00</span>
+                                    </div>
+                                </div>
+
+                                <div class="d-grid gap-2 mt-4">
+                                    <button class="btn btn-success" id="placeOrderBtn">
+                                        <i class="fas fa-check-circle"></i> Place Order
+                                    </button>
+                                    <button class="btn btn-outline-danger" id="cancelOrderBtn">
+                                        <i class="fas fa-times"></i> Cancel Order
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <!--Order History Section-->
+
+            <div id="order-history-page" class="page-section ">
+                <h1 class="mb-4">Order History</h1>
+
+                <div class="card">
+                    <div class="card-header">Past Orders</div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Order ID</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Customer</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody id="orderHistoryTableBody">
+
+                                <tr>
+                                    <td>ORD001</td>
+                                    <td>2023-10-26</td>
+                                    <td>John Doe</td>
+                                    <td>$1251.00</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info view-order me-1"><i class="fas fa-eye"></i> View</button>
+                                        <button class="btn btn-sm btn-danger delete-order"><i class="fas fa-trash-alt"></i> Delete</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>ORD002</td>
+                                    <td>2023-10-25</td>
+                                    <td>Jane Smith</td>
+                                    <td>$500.00</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info view-order me-1"><i class="fas fa-eye"></i> View</button>
+                                        <button class="btn btn-sm btn-danger delete-order"><i class="fas fa-trash-alt"></i> Delete</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="lib/jquery-3.7.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script type="module" src="controller/CustomerController.js"></script>
+        <script type="module" src="controller/ItemController.js"></script>
+
+    </body>
+</html>
+
