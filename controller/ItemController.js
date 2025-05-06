@@ -1,167 +1,5 @@
-// // Item Management Part
-//
-// $(document).ready(function () {
-//     const $itemForm = $('#itemForm');
-//     const $itemCodeInput = $('#itemCodeInput');
-//     const $itemNameInput = $('#itemNameInput');
-//     const $itemDescriptionInput = $('#itemDescriptionInput');
-//     const $itemPriceInput = $('#itemPriceInput');
-//     const $itemQuantityInput = $('#itemQuantityInput');
-//     const $itemTableBody = $('#itemTableBody');
-//     const $saveItemBtn = $('#saveItemBtn');
-//     const $updateItemBtn = $('#updateItemBtn');
-//     const $deleteItemBtn = $('#deleteItemBtn');
-//     const $resetItemBtn = $('#resetItemBtn');
-//
-//     function loadItemsTable() {
-//         $itemTableBody.empty(); // 🟢 This line says: Clear the item table
-//
-//         items.forEach(item => {
-//             const row = `
-//                 <tr data-code="${item.code}" data-name="${item.name}" data-description="${item.description}" data-price="${item.price}" data-quantity="${item.quantity}">
-//                     <td>${item.code}</td>
-//                     <td>${item.name}</td>
-//                     <td>${item.price.toFixed(2)}</td>
-//                     <td>${item.quantity}</td>
-//                     <td>
-//                         <button class="btn btn-sm btn-info view-item me-1"><i class="fas fa-eye"></i> View</button>
-//                         <button class="btn btn-sm btn-warning edit-item me-1"><i class="fas fa-edit"></i> Edit</button>
-//                         <button class="btn btn-sm btn-danger delete-item"><i class="fas fa-trash-alt"></i> Delete</button>
-//                     </td>
-//                 </tr>
-//             `;
-//             $itemTableBody.append(row); // 🟢 Add the row to the table
-//         });
-//
-//         addItemTableListeners(); // 🟢 Activate button listeners
-//     }
-//
-//     function addItemTableListeners() {
-//         $itemTableBody.find('.edit-item').on('click', function () {
-//             const $row = $(this).closest('tr');
-//             populateItemForm($row.data());
-//         });
-//
-//         $itemTableBody.find('.view-item').on('click', function () {
-//             const $row = $(this).closest('tr');
-//             populateItemForm($row.data());
-//
-//             // 🟢 Disable all inputs and buttons except reset
-//             $itemForm.find('input, textarea, button').not('.btn-secondary').prop('disabled', true);
-//             $resetItemBtn.prop('disabled', false);
-//         });
-//
-//         $itemTableBody.find('.delete-item').on('click', function () {
-//             const $row = $(this).closest('tr');
-//             const code = $row.data('code');
-//             if (confirm(`Are you sure you want to delete item ${code}?`)) {
-//                 deleteItem(code);
-//             }
-//         });
-//     }
-//
-//     function populateItemForm(data) {
-//         $itemCodeInput.val(data.code);
-//         $itemNameInput.val(data.name);
-//         $itemDescriptionInput.val(data.description);
-//         $itemPriceInput.val(data.price);
-//         $itemQuantityInput.val(data.quantity);
-//
-//         $saveItemBtn.prop('disabled', true);
-//         $updateItemBtn.prop('disabled', false);
-//         $deleteItemBtn.prop('disabled', false);
-//
-//         $itemForm.find('input, textarea').prop('disabled', false);
-//     }
-//
-//     function resetItemForm() {
-//         $itemForm[0].reset(); // 🟢 Reset the form fields
-//         $itemCodeInput.val(''); // 🟢 Clear code field
-//         $saveItemBtn.prop('disabled', false);
-//         $updateItemBtn.prop('disabled', true);
-//         $deleteItemBtn.prop('disabled', true);
-//         $itemForm.find('input, textarea').prop('disabled', false);
-//     }
-//
-//     function saveItem() {
-//         const newCode = 'I' + String(items.length + 1).padStart(3, '0');
-//         const newItem = {
-//             code: newCode,
-//             name: $itemNameInput.val(),
-//             description: $itemDescriptionInput.val(),
-//             price: parseFloat($itemPriceInput.val()),
-//             quantity: parseInt($itemQuantityInput.val())
-//         };
-//
-//         items.push(newItem);
-//         loadItemsTable();
-//         resetItemForm();
-//
-//         Swal.fire({
-//             title: "Success",
-//             text: `Item saved!`,
-//             icon: "success"
-//         });
-//     }
-//
-//     function updateItem() {
-//         const codeToUpdate = $itemCodeInput.val();
-//         const index = items.findIndex(i => i.code === codeToUpdate);
-//
-//         if (index > -1) {
-//             items[index] = {
-//                 code: codeToUpdate,
-//                 name: $itemNameInput.val(),
-//                 description: $itemDescriptionInput.val(),
-//                 price: parseFloat($itemPriceInput.val()),
-//                 quantity: parseInt($itemQuantityInput.val())
-//             };
-//
-//             loadItemsTable();
-//             resetItemForm();
-//
-//             Swal.fire({
-//                 title: "Success",
-//                 text: `Item ${codeToUpdate} updated!`,
-//                 icon: "success"
-//             });
-//         } else {
-//             Swal.fire({
-//                 icon: "error",
-//                 title: "Oops...",
-//                 text: `Item not found!`
-//             });
-//         }
-//     }
-//
-//     function deleteItem(codeToDelete) {
-//         items = items.filter(i => i.code !== codeToDelete);
-//         loadItemsTable();
-//         resetItemForm();
-//
-//         Swal.fire({
-//             title: "Success",
-//             text: `Item ${codeToDelete} deleted!`,
-//             icon: "success"
-//         });
-//     }
-//
-//     // 🟢 Button event bindings
-//     $saveItemBtn.on('click', saveItem);
-//     $updateItemBtn.on('click', updateItem);
-//     $deleteItemBtn.on('click', function () {
-//         const codeToDelete = $itemCodeInput.val();
-//         if (confirm(`Are you sure you want to delete item ${codeToDelete}?`)) {
-//             deleteItem(codeToDelete);
-//         }
-//     });
-//     $resetItemBtn.on('click', resetItemForm);
-// });
 
-
-//----------------------------------------------------------------------------------------------------------------------
-
-import {customers_db, items_db} from "../db/db.js";
+import { items_db} from "../db/db.js";
 import ItemModel from "../model/ItemModel.js";
 
 // Item Management Part
@@ -182,7 +20,7 @@ $(document).ready(function () {
 
 
     //Load Item table
-    function loadItemsTable() {
+    window.loadItemsTable =  function () {
         //Clear current table data
         $itemTableBody.empty();
         items_db.forEach(item => {
@@ -191,7 +29,6 @@ $(document).ready(function () {
                             <tr data-code="${item.code}" data-name="${item.name}" data-description="${item.description}" data-price="${item.price}" data-quantity="${item.quantity}">
                                 <td>${item.code}</td>
                                 <td>${item.name}</td>
-                                <td>${item.description}</td>
                                 <td>${item.price.toFixed(2)}</td>
                                 <td>${item.quantity}</td>
                                 <td>
@@ -258,7 +95,7 @@ $(document).ready(function () {
         $itemForm.find('input, textarea').prop('disabled', false);
     }
 
-    function resetItemForm() {
+    window.resetItemForm = function() {
         // To use .reset(), we need to work with the raw HTML element, not the jQuery object.
         // So, we use $itemForm[0] to get the raw HTML form, and then we call .reset() on it.
         // Then the form will be reset
@@ -391,9 +228,6 @@ $(document).ready(function () {
     // Reset item form when reset button clicked
     $resetItemBtn.on('click', resetItemForm);
 
-
-    loadItemsTable();
-    resetItemForm();
 });
 
 

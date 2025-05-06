@@ -1,11 +1,11 @@
-import {customers_db,items_db,orders_db,} from "../db/db.js";
+import {orders_db,} from "../db/db.js";
 
 
 // Order History Part
 
 const $orderHistoryTableBody = $('#orderHistoryTableBody');
 
-function loadOrderHistoryTable() {
+window.loadOrderHistoryTable = function () {
     $orderHistoryTableBody.empty();
 
     // Sort orders by date (newest first)
@@ -17,13 +17,10 @@ function loadOrderHistoryTable() {
                 <td>${order.orderId}</td>
                 <td>${order.date}</td>
                 <td>${order.customerName} (${order.customerId})</td>
-                <td>$${order.total.toFixed(2)}</td>
+                <td>Rs.${order.total.toFixed(2)}</td>
             </tr>
         `;
         $orderHistoryTableBody.append(row);
     });
 }
 
-$(document).ready(function () {
-    loadOrderHistoryTable();
-});

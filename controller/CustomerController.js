@@ -18,7 +18,7 @@ $(document).ready(function () {
     const $resetCustomerBtn = $('#resetCustomerBtn');
 
     //Load customer table
-    function loadCustomersTable() {
+    window.loadCustomersTable =  function() {
         //Clear current table data
         $customerTableBody.empty();
 
@@ -95,7 +95,7 @@ $(document).ready(function () {
         $customerForm.find('input, textarea').prop('disabled', false);
     }
 
-    function resetCustomerForm() {
+    window.resetCustomerForm =  function() {
         // To use .reset(), we need to work with the raw HTML element, not the jQuery object.
         // So, we use $customerForm[0] to get the raw HTML form, and then we call .reset() on it.
         // Then the form will be reset
@@ -225,7 +225,5 @@ $(document).ready(function () {
     $resetCustomerBtn.on('click', resetCustomerForm);
 
 
-    loadCustomersTable();
-    resetCustomerForm();
 });
 

@@ -14,7 +14,7 @@ const $cancelOrderBtn = $('#cancelOrderBtn');
 
 let currentOrderItems = [];
 
-function loadCustomersForOrder() {
+window.loadCustomersForOrder = function () {
     //Set the dropdown HTML to a default disabled option prompting user to select a customer
     $orderCustomerSelect.html('<option value="" selected disabled>Select Customer</option>');
 
@@ -27,7 +27,7 @@ function loadCustomersForOrder() {
 
 
 //load available items into the items table
-function loadAvailableItems() {
+window.loadAvailableItems = function () {
 
     //Clear all existing rows from the available items table body
     $availableItemsTableBody.empty();
@@ -48,11 +48,9 @@ function loadAvailableItems() {
                 </td>
             </tr>`;
 
-        //Append the created row to the available items table body
         $availableItemsTableBody.append(row);
     });
 
-    // Activate button listeners
     addAvailableItemsListeners();
 }
 
@@ -154,7 +152,7 @@ function updateOrderItemsList() {
             <div class="order-item d-flex justify-content-between align-items-center">
                 <div>
                     <h6 class="mb-0">${item.name} (${item.code})</h6>
-                    <small class="text-muted">$${item.price.toFixed(2)} each</small>
+                    <small class="text-muted">Rs.${item.price.toFixed(2)} each</small>
                 </div>
 
                 <div class="quantity-control">
@@ -169,7 +167,7 @@ function updateOrderItemsList() {
                     </button>
                 </div>
 
-                <div class="ms-3 fw-bold">$${(item.price * item.quantity).toFixed(2)}</div>
+                <div class="ms-3 fw-bold">Rs.${(item.price * item.quantity).toFixed(2)}</div>
 
                 <button class="btn btn-sm btn-outline-danger ms-2 remove-item-from-order" data-code="${item.code}">
                     <i class="fas fa-times"></i>
@@ -269,12 +267,6 @@ function addOrderItemsListListeners() {
         // Remove the item from the current order list
         currentOrderItems = currentOrderItems.filter(item => item.code !== itemCode);
 
-        // const index = customers_db.findIndex(c => c.id === idToDelete);
-        // if (index !== -1) {
-        //     //remove the customer object from the array at the found index
-        //     customers_db.splice(index, 1);
-        // }
-
         // Update the item list and summary in the UI
         updateOrderItemsList();
         updateOrderSummary();
@@ -295,13 +287,13 @@ function updateOrderSummary() {
     const total = subtotal + tax;
 
     // Display subtotal in the corresponding HTML span
-    $orderSubtotalSpan.text(`$${subtotal.toFixed(2)}`);
+    $orderSubtotalSpan.text(`Rs.${subtotal.toFixed(2)}`);
 
     // Display tax in the corresponding HTML span
-    $orderTaxSpan.text(`$${tax.toFixed(2)}`);
+    $orderTaxSpan.text(`Rs.${tax.toFixed(2)}`);
 
     // Display total amount in the corresponding HTML span
-    $orderTotalSpan.text(`$${total.toFixed(2)}`);
+    $orderTotalSpan.text(`Rs.${total.toFixed(2)}`);
 
     // Disable the "Place Order" button if no items are selected or no customer is selected
     $placeOrderBtn.prop('disabled', currentOrderItems.length === 0 || $orderCustomerSelect.val() === "");
@@ -309,9 +301,8 @@ function updateOrderSummary() {
 
 
 // reset the order form to its initial state
-function resetOrderForm() {
+window.resetOrderForm = function () {
 
-    // Clear the selected customer in the dropdown
     $orderCustomerSelect.val("");
 
     // Get the current date
@@ -367,9 +358,9 @@ $placeOrderBtn.on('click', function() {
         customerId,
         selectedCustomer ? selectedCustomer.name : 'Unknown Customer',
         [...currentOrderItems],
-        parseFloat($orderSubtotalSpan.text().replace('$', '')),
-        parseFloat($orderTaxSpan.text().replace('$', '')),
-        parseFloat($orderTotalSpan.text().replace('$', ''))
+        parseFloat($orderSubtotalSpan.text().replace('Rs.', '')),
+        parseFloat($orderTaxSpan.text().replace('Rs.', '')),
+        parseFloat($orderTotalSpan.text().replace('Rs.', ''))
     );
 
     // Add the new order to the orders database
@@ -414,8 +405,3 @@ $cancelOrderBtn.on('click', function() {
 });
 
 
-$(document).ready(function () {
-    loadCustomersForOrder();
-    loadAvailableItems();
-    resetOrderForm();
-});
