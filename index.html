@@ -412,12 +412,19 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<!--     module = A file that can import and export code between other JS files.-->
+<!--     We should use type="module" if inside script.js, we use import or export-->
+<!--     We should NOT use type="module" if the file does not use import or export or It just runs jQuery code like:-->
+<!--        -->
+<!--        $(document).ready(function () {-->
+<!--            // -->
+<!--        });-->
+
         <script type="module" src="controller/CustomerController.js"></script>
         <script type="module" src="controller/ItemController.js"></script>
         <script type="module" src="controller/OrderController.js"></script>
         <script type="module" src="controller/OrderHistoryController.js"></script>
-        <script src="pageNavigations.js"></script>
-
+        <script src="controller/pageNavigations.js"></script>
 
     </body>
 </html>
