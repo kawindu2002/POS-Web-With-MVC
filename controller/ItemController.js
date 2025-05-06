@@ -333,6 +333,7 @@ $(document).ready(function () {
                 icon: "success"
             });
 
+
             //load the item table data after adding data into array
             loadItemsTable();
 
@@ -389,5 +390,10 @@ $(document).ready(function () {
     });
     // Reset item form when reset button clicked
     $resetItemBtn.on('click', resetItemForm);
+
+
+    loadItemsTable();
+    resetItemForm();
 });
+
 

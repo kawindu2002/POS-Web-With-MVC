@@ -107,7 +107,7 @@
 
         <!--Customer Management Section-->
 
-            <div id="customer-page" class="page-section active">
+            <div id="customer-page" class="page-section ">
                 <h1 class="mb-4">Customer Management</h1>
 
                 <div class="card mb-4">
@@ -319,50 +319,6 @@
                                         </thead>
                                         <tbody id="availableItemsTableBody">
 
-                                        <tr data-code="I001" data-name="Laptop" data-price="1200.00" data-quantity="15">
-                                            <td>I001</td>
-                                            <td>Laptop</td>
-                                            <td>1200.00</td>
-                                            <td>15</td>
-                                            <td>
-                                                <button class="btn btn-sm btn-success add-item-to-order" data-code="I001">
-                                                    <i class="fas fa-plus"></i> Add
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr data-code="I002" data-name="Mouse" data-price="25.50" data-quantity="150">
-                                            <td>I002</td>
-                                            <td>Mouse</td>
-                                            <td>25.50</td>
-                                            <td>150</td>
-                                            <td>
-                                                <button class="btn btn-sm btn-success add-item-to-order" data-code="I002">
-                                                    <i class="fas fa-plus"></i> Add
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr data-code="I003" data-name="Keyboard" data-price="49.99" data-quantity="30">
-                                            <td>I003</td>
-                                            <td>Keyboard</td>
-                                            <td>49.99</td>
-                                            <td>30</td>
-                                            <td>
-                                                <button class="btn btn-sm btn-success add-item-to-order" data-code="I003">
-                                                    <i class="fas fa-plus"></i> Add
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr data-code="I004" data-name="Monitor" data-price="199.99" data-quantity="10">
-                                            <td>I004</td>
-                                            <td>Monitor</td>
-                                            <td>199.99</td>
-                                            <td>10</td>
-                                            <td>
-                                                <button class="btn btn-sm btn-success add-item-to-order" data-code="I004">
-                                                    <i class="fas fa-plus"></i> Add
-                                                </button>
-                                            </td>
-                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -381,8 +337,6 @@
                                     <select class="form-select" id="orderCustomerSelect">
                                         <option value="" selected disabled>Select Customer</option>
 
-                                        <option value="C001">John Doe (C001)</option>
-                                        <option value="C002">Jane Smith (C002)</option>
                                     </select>
                                 </div>
 
@@ -428,7 +382,7 @@
 
         <!--Order History Section-->
 
-            <div id="order-history-page" class="page-section ">
+            <div id="order-history-page" class="page-section active">
                 <h1 class="mb-4">Order History</h1>
 
                 <div class="card">
@@ -442,31 +396,10 @@
                                     <th scope="col">Date</th>
                                     <th scope="col">Customer</th>
                                     <th scope="col">Total</th>
-                                    <th scope="col">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody id="orderHistoryTableBody">
 
-                                <tr>
-                                    <td>ORD001</td>
-                                    <td>2023-10-26</td>
-                                    <td>John Doe</td>
-                                    <td>$1251.00</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-info view-order me-1"><i class="fas fa-eye"></i> View</button>
-                                        <button class="btn btn-sm btn-danger delete-order"><i class="fas fa-trash-alt"></i> Delete</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>ORD002</td>
-                                    <td>2023-10-25</td>
-                                    <td>Jane Smith</td>
-                                    <td>$500.00</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-info view-order me-1"><i class="fas fa-eye"></i> View</button>
-                                        <button class="btn btn-sm btn-danger delete-order"><i class="fas fa-trash-alt"></i> Delete</button>
-                                    </td>
-                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -481,6 +414,8 @@
 
         <script type="module" src="controller/CustomerController.js"></script>
         <script type="module" src="controller/ItemController.js"></script>
+        <script type="module" src="controller/OrderController.js"></script>
+        <script type="module" src="controller/OrderHistoryController.js"></script>
 
     </body>
 </html>

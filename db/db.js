@@ -1,3 +1,5 @@
+// Db with test data
+
 export let customers_db = [
     { id: 'C001', name: 'Pasindu Malshan', email: 'pmalshan@gmail.com', phone: '0716236452', address: 'Galle' },
     { id: 'C002', name: 'Shanuka Sathsara', email: 'shanuka@gmail.com', phone: '0772367123', address: 'Panadura' },
@@ -15,7 +17,7 @@ export let orders_db = [
             orderId: 'ORD001',
             date: '2023-10-26',
             customerId: 'C001',
-            customerName: 'John Doe',
+            customerName: 'Pasindu Malshan',
             total: 1251.00,
             items: [
                 { code: 'I001', name: 'Laptop', price: 1200.00, quantity: 1 }
@@ -26,7 +28,7 @@ export let orders_db = [
             orderId: 'ORD002',
             date: '2023-10-25',
             customerId: 'C002',
-            customerName: 'Jane Smith',
+            customerName: 'Shanuka Sathsara',
             total: 500.00,
             items: [
                 { code: 'I004', name: 'Monitor', price: 199.99, quantity: 2 },

@@ -223,5 +223,9 @@ $(document).ready(function () {
     });
     // Reset customer form when reset button clicked
     $resetCustomerBtn.on('click', resetCustomerForm);
+
+
+    loadCustomersTable();
+    resetCustomerForm();
 });
 

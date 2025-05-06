@@ -10,3 +10,4 @@ export default class OrderModel {
         this.total = total;
     }
 }
+
