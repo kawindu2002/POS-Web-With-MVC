@@ -1,17 +1,27 @@
+// Run this code only after the HTML page is fully loaded
 $(document).ready(function () {
+
+    // Select all nav links that have a 'data-target' attribute
     const $navLinks = $('.nav-link[data-target]');
+
+    // Select all card buttons that have a 'data-target' attribute
     const $cardButtons = $('.card-button[data-target]');
+
+    // Select all sections of the page
     const $pageSections = $('.page-section');
 
-    // --- Page Navigation ---
+    // This is the function to switch between pages
     function showPage(targetId) {
+        // Hide all sections
         $pageSections.removeClass('active');
 
+        // Show only the section that matches the clicked link's target
         const $targetSection = $('#' + targetId);
         if ($targetSection.length) {
             $targetSection.addClass('active');
         }
 
+        // Highlight the active navigation link
         $navLinks.each(function () {
             const $link = $(this);
             if ($link.data('target') === targetId) {
@@ -21,39 +31,44 @@ $(document).ready(function () {
             }
         });
 
+        // Call specific functions depending on which page is shown
         if (targetId === 'order-page') {
-            loadCustomersForOrder();
-            loadAvailableItems();
-            resetOrderForm();
+            loadCustomersForOrder();  // Load customers for placing orders
+            loadAvailableItems();     // Load items to choose from
+            resetOrderForm();         // Clear old form data
         } else if (targetId === 'customer-page') {
-            loadCustomersTable();
-            resetCustomerForm();
+            loadCustomersTable();     // Load all customers into a table
+            resetCustomerForm();      // Clear the customer form
         } else if (targetId === 'item-page') {
-            loadItemsTable();
-            resetItemForm();
+            loadItemsTable();         // Load all items into a table
+            resetItemForm();          // Clear the item form
         } else if (targetId === 'order-history-page') {
-            loadOrderHistoryTable();
+            loadOrderHistoryTable();  // Load previous orders
         }
     }
 
-    // 🟢 Link and card click behavior
+    // When a nav link is clicked, stop default behavior and show the linked page
     $navLinks.on('click', function (event) {
         event.preventDefault();
         const targetId = $(this).data('target');
         showPage(targetId);
     });
 
+    // When a card button is clicked, show the linked page
     $cardButtons.on('click', function () {
         const targetId = $(this).data('target');
         showPage(targetId);
     });
 
-    // --- Initial Page Load ---
+    // --- Initial Page Load Setup ---
+
+    // Find the section that was already marked as active
     const $initialActivePage = $('.page-section.active');
 
     if ($initialActivePage.length > 0) {
         const initialTargetId = $initialActivePage.attr('id');
 
+        // Highlight the correct nav link when page loads
         $navLinks.each(function () {
             const $link = $(this);
             if ($link.data('target') === initialTargetId) {
@@ -63,7 +78,7 @@ $(document).ready(function () {
             }
         });
 
-        // 🟢 Call correct function on page load
+        // load correct data based on initial page
         if (initialTargetId === 'customer-page') {
             loadCustomersTable();
         } else if (initialTargetId === 'item-page') {
@@ -75,7 +90,10 @@ $(document).ready(function () {
         } else if (initialTargetId === 'order-history-page') {
             loadOrderHistoryTable();
         }
+
     } else {
+        //If no active section is set, show the homepage
         showPage('homepage');
     }
+
 });

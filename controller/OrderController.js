@@ -297,6 +297,9 @@ function updateOrderSummary() {
 
     // Disable the "Place Order" button if no items are selected or no customer is selected
     $placeOrderBtn.prop('disabled', currentOrderItems.length === 0 || $orderCustomerSelect.val() === "");
+
+    // Disable the "Cancel Order" button if no items are selected or no customer is selected
+    $cancelOrderBtn.prop('disabled', currentOrderItems.length === 0 || $orderCustomerSelect.val() === "");
 }
 
 
