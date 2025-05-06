@@ -14,15 +14,6 @@ const $cancelOrderBtn = $('#cancelOrderBtn');
 
 let currentOrderItems = [];
 
-// this.orderId = orderId;
-// this.date = date;
-// this.customerId = customerId;
-// this.customerName = customerName;
-// this.items = items;
-// this.subtotal = subtotal;
-// this.tax = tax;
-// this.total = total;
-
 function loadCustomersForOrder() {
     //Set the dropdown HTML to a default disabled option prompting user to select a customer
     $orderCustomerSelect.html('<option value="" selected disabled>Select Customer</option>');
