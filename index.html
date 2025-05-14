@@ -64,7 +64,7 @@
                 <h1 class="mb-4">Welcome to KPOS</h1>
                 <div class="row row-cols-1 row-cols-md-2 g-4">
                     <div class="col">
-                        <div class="card text-center h-100 card-button" data-target="customer-page">
+                        <div class="card text-center h-100 shadow card-button" data-target="customer-page">
                             <div class="card-body d-flex flex-column justify-content-center align-items-center">
                                 <i class="fas fa-users fa-4x mb-3 text-primary"></i>
                                 <h5 class="card-title">Customers</h5>
@@ -74,7 +74,7 @@
                     </div>
 
                     <div class="col">
-                        <div class="card text-center h-100 card-button" data-target="item-page">
+                        <div class="card text-center h-100 shadow card-button" data-target="item-page">
                             <div class="card-body d-flex flex-column justify-content-center align-items-center">
                                 <i class="fas fa-box-open fa-4x mb-3 text-success"></i>
                                 <h5 class="card-title">Items</h5>
@@ -84,7 +84,7 @@
                     </div>
 
                     <div class="col">
-                        <div class="card text-center h-100 card-button" data-target="order-page">
+                        <div class="card text-center h-100 shadow card-button" data-target="order-page">
                             <div class="card-body d-flex flex-column justify-content-center align-items-center">
                                 <i class="fas fa-cash-register fa-4x mb-3 text-danger"></i>
                                 <h5 class="card-title">New Order</h5>
@@ -94,7 +94,7 @@
                     </div>
 
                     <div class="col">
-                        <div class="card text-center h-100 card-button" data-target="order-history-page">
+                        <div class="card text-center h-100 shadow card-button" data-target="order-history-page">
                             <div class="card-body d-flex flex-column justify-content-center align-items-center">
                                 <i class="fas fa-history fa-4x mb-3 text-warning"></i>
                                 <h5 class="card-title">Order History</h5>
@@ -166,30 +166,6 @@
                                 </thead>
                                 <tbody id="customerTableBody">
 
-<!--                                <tr data-id="C001" data-name="John Doe" data-email="john@example.com" data-phone="123-456-7890" data-address="123 Main St">-->
-<!--                                    <td>C001</td>-->
-<!--                                    <td>John Doe</td>-->
-<!--                                    <td>john@example.com</td>-->
-<!--                                    <td>123-456-7890</td>-->
-<!--                                    <td>123 Main St</td>-->
-<!--                                    <td>-->
-<!--                                        <button class="btn btn-sm btn-info view-customer me-1"><i class="fas fa-eye"></i> View</button>-->
-<!--                                        <button class="btn btn-sm btn-warning edit-customer me-1"><i class="fas fa-edit"></i> Edit</button>-->
-<!--                                        <button class="btn btn-sm btn-danger delete-customer"><i class="fas fa-trash-alt"></i> Delete</button>-->
-<!--                                    </td>-->
-<!--                                </tr>-->
-<!--                                <tr data-id="C002" data-name="Jane Smith" data-email="jane@example.com" data-phone="987-654-3210" data-address="456 Oak Ave">-->
-<!--                                    <td>C002</td>-->
-<!--                                    <td>Jane Smith</td>-->
-<!--                                    <td>jane@example.com</td>-->
-<!--                                    <td>987-654-3210</td>-->
-<!--                                    <td>456 Oak Ave</td>-->
-<!--                                    <td>-->
-<!--                                        <button class="btn btn-sm btn-info view-customer me-1"><i class="fas fa-eye"></i> View</button>-->
-<!--                                        <button class="btn btn-sm btn-warning edit-customer me-1"><i class="fas fa-edit"></i> Edit</button>-->
-<!--                                        <button class="btn btn-sm btn-danger delete-customer"><i class="fas fa-trash-alt"></i> Delete</button>-->
-<!--                                    </td>-->
-<!--                                </tr>-->
                                 </tbody>
                             </table>
                         </div>
@@ -258,28 +234,6 @@
                                 </thead>
                                 <tbody id="itemTableBody">
 
-<!--                                <tr data-code="I001" data-name="Laptop" data-price="1200.00" data-quantity="15" data-description="High performance laptop">-->
-<!--                                    <td>I001</td>-->
-<!--                                    <td>Laptop</td>-->
-<!--                                    <td>1200.00</td>-->
-<!--                                    <td>15</td>-->
-<!--                                    <td>-->
-<!--                                        <button class="btn btn-sm btn-info view-item me-1"><i class="fas fa-eye"></i> View</button>-->
-<!--                                        <button class="btn btn-sm btn-warning edit-item me-1"><i class="fas fa-edit"></i> Edit</button>-->
-<!--                                        <button class="btn btn-sm btn-danger delete-item"><i class="fas fa-trash-alt"></i> Delete</button>-->
-<!--                                    </td>-->
-<!--                                </tr>-->
-<!--                                <tr data-code="I002" data-name="Mouse" data-price="25.50" data-quantity="150" data-description="Wireless ergonomic mouse">-->
-<!--                                    <td>I002</td>-->
-<!--                                    <td>Mouse</td>-->
-<!--                                    <td>25.50</td>-->
-<!--                                    <td>150</td>-->
-<!--                                    <td>-->
-<!--                                        <button class="btn btn-sm btn-info view-item me-1"><i class="fas fa-eye"></i> View</button>-->
-<!--                                        <button class="btn btn-sm btn-warning edit-item me-1"><i class="fas fa-edit"></i> Edit</button>-->
-<!--                                        <button class="btn btn-sm btn-danger delete-item"><i class="fas fa-trash-alt"></i> Delete</button>-->
-<!--                                    </td>-->
-<!--                                </tr>-->
                                 </tbody>
                             </table>
                         </div>
@@ -301,7 +255,7 @@
                             <div class="card-body">
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" placeholder="Search items..." id="orderItemSearchInput">
-                                    <button class="btn btn-outline-secondary" type="button">
+                                    <button class="btn btn-outline-secondary" type="button" disabled>
                                         <i class="fas fa-search"></i>
                                     </button>
                                 </div>
@@ -415,7 +369,6 @@
 <!--     module = A file that can import and export code between other JS files.-->
 <!--     We should use type="module" if inside script.js, we use import or export-->
 <!--     We should NOT use type="module" if the file does not use import or export or It just runs jQuery code like:-->
-<!--        -->
 <!--        $(document).ready(function () {-->
 <!--            // -->
 <!--        });-->
@@ -424,7 +377,8 @@
         <script type="module" src="controller/ItemController.js"></script>
         <script type="module" src="controller/OrderController.js"></script>
         <script type="module" src="controller/OrderHistoryController.js"></script>
-        <script src="controller/pageNavigations.js"></script>
+        <script src="util/validation.js"></script>
+        <script src="util/pageNavigations.js"></script>
 
     </body>
 </html>

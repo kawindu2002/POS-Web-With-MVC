@@ -1,8 +1,10 @@
 .page-section {
-    display: none; /* Hide all sections by default */
+    /* Hide all sections by default */
+    display: none;
 }
 .page-section.active {
-    display: block; /* Show the active section */
+    /* Show the active section */
+    display: block;
 }
 
 .card-button {
@@ -40,3 +42,4 @@
     text-align: center;
     margin: 0 5px;
 }
+

@@ -18,6 +18,8 @@ $(document).ready(function () {
     const $resetCustomerBtn = $('#resetCustomerBtn');
 
     //Load customer table
+    // window. can make a function available globally
+    
     window.loadCustomersTable =  function() {
         //Clear current table data
         $customerTableBody.empty();
@@ -65,19 +67,33 @@ $(document).ready(function () {
             //Disable everything in the form except the Reset button for view mode
             $customerForm.find('input, textarea, button').not('.btn-secondary').prop('disabled', true);
         });
-
+        
         $customerTableBody.find('.delete-customer').on('click', function () {
-            // finds the table row of the button
             const $row = $(this).closest('tr');
-            // Table row Id value stores in customerId variable
             const customerId = $row.data('id');
-
-            if (confirm(`Are you sure you want to delete customer ${customerId}?`)) {
-                deleteCustomer(customerId);
-            }
+            
+            Swal.fire({
+                title: 'Are you sure?',
+                text: `Do you really want to delete customer ${customerId}?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, keep it'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    deleteCustomer(customerId);
+                    Swal.fire({
+                        title: 'Deleted!',
+                        text: `Customer ${customerId} has been deleted.`,
+                        icon: 'success'
+                    });
+                }
+            });
         });
     }
-
+    
+    
+    // Function to add table data to input fields
     function populateCustomerForm(data) {
         // Add row data to input fields
         $customerIdInput.val(data.id);
@@ -93,15 +109,18 @@ $(document).ready(function () {
 
         //Enable form inputs and textareas
         $customerForm.find('input, textarea').prop('disabled', false);
+        $customerIdInput.prop('disabled', true);
+        
     }
 
+    //function to reset input fields
     window.resetCustomerForm =  function() {
         // To use .reset(), we need to work with the raw HTML element, not the jQuery object.
         // So, we use $customerForm[0] to get the raw HTML form, and then we call .reset() on it.
         // Then the form will be reset
         $customerForm[0].reset();
         // Make $customerIdInput empty
-        $customerIdInput.val('');
+        $customerIdInput.val(getNextCustomerId());
 
         //Manage button status
         $saveCustomerBtn.prop('disabled', false);
@@ -110,37 +129,48 @@ $(document).ready(function () {
 
         //Enable form inputs and textareas
         $customerForm.find('input, textarea').prop('disabled', false);
+        $customerIdInput.prop('disabled', true);
 
         loadCustomersTable();
     }
-
+    
+    //function save customer
     function saveCustomer() {
-        // Format the new Customer Id
-        let newId = 'C' + String(customers_db.length + 1).padStart(3, '0');
         // Add input field values to customer Id object
 
-        let id = newId;
+        let id = getNextCustomerId();
         let name = $customerNameInput.val();
         let email = $customerEmailInput.val();
         let phone = $customerPhoneInput.val();
         let address = $customerAddressInput.val();
-
+        
         let customer_data = new CustomerModel(id,name,email,phone,address);
-        // Add new customer object to customers array
-        customers_db.push(customer_data);
-        // Show saved success message
-        Swal.fire({
-            title: "Success",
-            text: `Customer saved!`,
-            icon: "success"
-        });
-        // Load table again
-        loadCustomersTable();
-        // Reset the form
-        resetCustomerForm();
-
+        
+        if (validateCustomer(customer_data)) {
+            // Add new customer object to customers array
+            customers_db.push(customer_data);
+            // Show saved success message
+            Swal.fire({
+                title: "Success",
+                text: `Customer saved!`,
+                icon: "success"
+            });
+            // Load table again
+            loadCustomersTable();
+            // Reset the form
+            resetCustomerForm();
+            
+        }
+        // else {
+        //     Swal.fire({
+        //         icon: "error",
+        //         title: "Oops...",
+        //         text: `Invalid customer data`
+        //     });
+        // }
     }
-
+    
+    //function update customer
     function updateCustomer() {
         // get the value of customer id input field (We use val() instead of value() in jQuery)
         const idToUpdate = $customerIdInput.val();
@@ -152,9 +182,9 @@ $(document).ready(function () {
         let customerIndex = customers_db.findIndex(c => c.id === idToUpdate);
 
         if (customerIndex > -1) {
-
-            customers_db[customerIndex] = {
-                // Add updated data to related customer object of the array
+            
+            // Get the updated customer details from the form
+            const updatedCustomer = {
                 id: idToUpdate,
                 name: $customerNameInput.val(),
                 email: $customerEmailInput.val(),
@@ -162,27 +192,33 @@ $(document).ready(function () {
                 address: $customerAddressInput.val()
             };
 
-            Swal.fire({
-                title: "Success",
-                text: `Customer ${idToUpdate} updated!`,
-                icon: "success"
-            });
+            // Validate the updated customer data
+            if (validateCustomer(updatedCustomer)) {
+                // If validation passes, update the customer in the db
+                customers_db[customerIndex] = updatedCustomer;
+                Swal.fire({
+                    title: "Success",
+                    text: `Customer ${idToUpdate} updated!`,
+                    icon: "success"
+                });
 
-            //load the customer table data after adding data into array
-            loadCustomersTable();
+                //load the customer table data after adding data into array
+                loadCustomersTable();
 
-            //reset the customer form
-            resetCustomerForm();
-
-        } else {
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: `Customer not found!`
-            });
+                //reset the customer form
+                resetCustomerForm();
+            }
+            // else {
+            //     Swal.fire({
+            //         icon: "error",
+            //         title: "Oops...",
+            //         text: `Invalid customer data!`
+            //     });
+            // }
         }
     }
-
+    
+    // Function to delete a customer
     function deleteCustomer(idToDelete) {
 
         // This shows an error even though customers_db declared as let.
@@ -214,16 +250,53 @@ $(document).ready(function () {
     // Update customer when update button clicked
     $updateCustomerBtn.on('click', updateCustomer);
     // Delete customer when delete button clicked
+    
     $deleteCustomerBtn.on('click', function () {
         let idToDelete = $customerIdInput.val();
-        if (confirm(`Are you sure you want to delete customer ${idToDelete}?`)) {
-            deleteCustomer(idToDelete);
-        }
-
+        
+        Swal.fire({
+            title: 'Are you sure?',
+            text: `Do you really want to delete customer ${idToDelete}?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, keep it'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteCustomer(idToDelete);
+                Swal.fire({
+                    title: 'Deleted!',
+                    text: `Customer ${idToDelete} has been deleted.`,
+                    icon: 'success'
+                });
+            }
+        });
     });
+    
+    
     // Reset customer form when reset button clicked
     $resetCustomerBtn.on('click', resetCustomerForm);
-
-
+    
+    
+    // Function to generate a unique customer ID
+    function getNextCustomerId() {
+        let lastCustomerId = customers_db[customers_db.length - 1]?.id || 'C000';
+        let lastIdNumber = parseInt(lastCustomerId.substring(1)); // Remove the "C" and parse the number
+        let nextIdNumber = lastIdNumber + 1; // Increment the number
+        
+        // Generate the new ID
+        let newCustomerId = `C${nextIdNumber.toString().padStart(3, '0')}`;
+        
+        // Check if this ID already exists in the database
+        while (customers_db.some(customer => customer.id === newCustomerId)) {
+            // If it exists, increment and try again
+            nextIdNumber++;
+            newCustomerId = `C${nextIdNumber.toString().padStart(3, '0')}`;
+        }
+        
+        return newCustomerId;
+    }
+    
+    
 });
 

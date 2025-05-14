@@ -1,5 +1,5 @@
 
-import { items_db} from "../db/db.js";
+import {customers_db, items_db} from "../db/db.js";
 import ItemModel from "../model/ItemModel.js";
 
 // Item Management Part
@@ -63,21 +63,37 @@ $(document).ready(function () {
 
             //Disable everything in the form except the Reset button for view mode
             $itemForm.find('input, textarea, button').not('.btn-secondary').prop('disabled', true);
+            
         });
-
+        
         $itemTableBody.find('.delete-item').on('click', function () {
             // finds the table row of the button
             const $row = $(this).closest('tr');
             // Table row code value stores in itemCode variable
             const itemCode = $row.data('code');
-
-            if (confirm(`Are you sure you want to delete item ${itemCode}?`)) {
-                deleteItem(itemCode);
-            }
+            
+            Swal.fire({
+                title: 'Are you sure?',
+                text: `Do you really want to delete item ${itemCode}?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, keep it'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    deleteItem(itemCode);
+                    Swal.fire({
+                        title: 'Deleted!',
+                        text: `item ${itemCode} has been deleted.`,
+                        icon: 'success'
+                    });
+                }
+            });
         });
+        
     }
-
-
+    
+    // Function to add table data to input fields
     function populateItemForm(data) {
         // Add row data to input fields
         $itemCodeInput.val(data.code);
@@ -93,15 +109,18 @@ $(document).ready(function () {
 
         //Enable form inputs and textareas
         $itemForm.find('input, textarea').prop('disabled', false);
+        $itemCodeInput.prop('disabled', true);
+        
     }
-
+    
+    // Function to reset item form
     window.resetItemForm = function() {
         // To use .reset(), we need to work with the raw HTML element, not the jQuery object.
         // So, we use $itemForm[0] to get the raw HTML form, and then we call .reset() on it.
         // Then the form will be reset
         $itemForm[0].reset();
         // Make $itemIdInput empty
-        $itemCodeInput.val('');
+        $itemCodeInput.val(getNextItemCode());
 
         //Manage button status
         $saveItemBtn.prop('disabled', false);
@@ -110,53 +129,62 @@ $(document).ready(function () {
 
         //Enable form inputs and textareas
         $itemForm.find('input, textarea').prop('disabled', false);
+        $itemCodeInput.prop('disabled', true);
 
         loadItemsTable();
     }
-
+    
+    // Function to save an item
     function saveItem() {
-        // Format the new Item code
-        let newCode = 'I' + String(items_db.length + 1).padStart(3, '0');
-        // Add input field values to item object
-
-        let code = newCode;
+        // Add input field values to Item code object
+        
+        let code = getNextItemCode();
         let name = $itemNameInput.val();
         let description = $itemDescriptionInput.val();
         let price = parseFloat($itemPriceInput.val());
         let quantity = parseInt($itemQuantityInput.val());
-
+        
         let item_data = new ItemModel(code,name,description,price,quantity);
-        // Add new item object to items array
-        items_db.push(item_data);
-
-        // Show saved success message
-        Swal.fire({
-            title: "Success",
-            text: `Item saved!`,
-            icon: "success"
-        });
-        // Load table again
-        loadItemsTable();
-        // Reset the form
-        resetItemForm();
-
-    }
-
-    function updateItem() {
-        // get the value of item id input field (We use val() instead of value() in jQuery)
-        const codeToUpdate = $itemCodeInput.val();
-
-        // items_db.findIndex(i) {
-        //     return i.code === codeToUpdate;
+        
+        if (validateItem(item_data)) {
+            // Add new item object to items array
+            items_db.push(item_data);
+            // Show saved success message
+                Swal.fire({
+                    title: "Success",
+                    text: `Item saved!`,
+                    icon: "success"
+                });
+            // Load table again
+            loadItemsTable();
+            // Reset the form
+            resetItemForm();
+            
+        }
+        // else {
+        //     Swal.fire({
+        //         icon: "error",
+        //         title: "Oops...",
+        //         text: `Invalid item data`
+        //     });
         // }
+    }
+    
+    // Function to update an item
+    function updateItem() {
+        // get the value of item code input field (We use val() instead of value() in jQuery)
+            const codeToUpdate = $itemCodeInput.val();
 
-        // Check the item list, and get index of the item whose ID matches idToUpdate.
+        // items_db.findIndex(c) {
+        //     return i.id === codeToUpdate;
+        // }
+        
+        // Check the item list, and get index of the item whose Code matches codeToUpdate.
         let itemIndex = items_db.findIndex(i => i.code === codeToUpdate);
-
         if (itemIndex > -1) {
 
-            items_db[itemIndex] = {
-                // Add updated data to related item object of the array
+            // Get the updated item details from the form
+            const updatedItem = {
                 code: codeToUpdate,
                 name : $itemNameInput.val(),
                 description : $itemDescriptionInput.val(),
@@ -164,28 +192,52 @@ $(document).ready(function () {
                 quantity: parseInt($itemQuantityInput.val())
             };
 
-            Swal.fire({
-                title: "Success",
-                text: `Item ${codeToUpdate} updated!`,
-                icon: "success"
-            });
+            // Validate the updated item data
+            if (validateItem(updatedItem)) {
+                // If validation passes, update the item in the db
+                items_db[itemIndex] = updatedItem;
+                Swal.fire({
+                    title: "Success",
+                    text: `Item ${codeToUpdate} updated!`,
+                    icon: "success"
+                });
 
+                //load the item table data after adding data into array
+                loadItemsTable();
 
-            //load the item table data after adding data into array
-            loadItemsTable();
-
-            //reset the item form
-            resetItemForm();
-
-        } else {
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: `Item not found!`
-            });
+                //reset the item form
+                resetItemForm();
+            }
+            // else {
+            //     Swal.fire({
+            //         icon: "error",
+            //         title: "Oops...",
+            //         text: `Invalid item data!`
+            //     });
+            // }
         }
     }
-
+    
+    // Function to generate a unique item code
+    function getNextItemCode() {
+        let lastItemCode = items_db[items_db.length - 1]?.code || 'I000';
+        let lastIdNumber = parseInt(lastItemCode.substring(1)); // Remove the "I" and parse the number
+        let nextIdNumber = lastIdNumber + 1; // Increment the number
+        
+        // Generate the new ID
+        let newItemCode = `I${nextIdNumber.toString().padStart(3, '0')}`;
+        
+        // Check if this code already exists in the database
+        while (items_db.some(item => item.code === newItemCode)) {
+            // If it exists, increment and try again
+            nextIdNumber++;
+            newItemCode = `I${nextIdNumber.toString().padStart(3, '0')}`;
+        }
+        
+        return newItemCode;
+    }
+    
+    // Function to delete items
     function deleteItem(codeToDelete) {
 
         // This shows an error even though items_db declared as let.
@@ -215,15 +267,31 @@ $(document).ready(function () {
 
     // Save item when save button clicked
     $saveItemBtn.on('click', saveItem);
+    
     // Update item when update button clicked
     $updateItemBtn.on('click', updateItem);
+    
     // Delete item when delete button clicked
     $deleteItemBtn.on('click', function () {
         let codeToDelete = $itemCodeInput.val();
-        if (confirm(`Are you sure you want to delete item ${codeToDelete}?`)) {
-            deleteItem(codeToDelete);
-        }
-
+        
+        Swal.fire({
+            title: 'Are you sure?',
+            text: `Do you really want to delete item ${codeToDelete}?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, keep it'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteItem(codeToDelete);
+                Swal.fire({
+                    title: 'Deleted!',
+                    text: `Item ${codeToDelete} has been deleted.`,
+                    icon: 'success'
+                });
+            }
+        });
     });
     // Reset item form when reset button clicked
     $resetItemBtn.on('click', resetItemForm);
