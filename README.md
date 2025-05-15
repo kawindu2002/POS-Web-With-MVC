@@ -1,6 +1,6 @@
 # 🛒 POS-Web-With-MVC
 
-Welcome to **POS-Web-With-MVC**, my lord's web-based Point of Sale (POS) system developed using the Model-View-Controller (MVC) architecture. This project serves as a learning platform to understand and implement core POS functionalities in a structured manner.
+Welcome to **POS-Web-With-MVC**, my web-based Point of Sale (POS) system developed using the Model-View-Controller (MVC) architecture. This project serves as a learning platform to understand and implement core POS functionalities in a structured manner.
 
 
 ## 🌐 Live Demo
