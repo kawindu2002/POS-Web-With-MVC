@@ -436,7 +436,7 @@ $cancelOrderBtn.on('click', function () {
 });
 
 //Search input bar
-$('#orderItemSearchInput').on('input', function () {
+$orderItemSearchInput.on('input', function () {
     
     // Get the entered text and convert it to lowercase
     let searchText = $(this).val().toLowerCase();
