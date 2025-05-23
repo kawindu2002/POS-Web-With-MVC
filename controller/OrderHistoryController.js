@@ -1,17 +1,13 @@
 import {orders_db,} from "../db/db.js";
 
-
 // Order History Part
 
 const $orderHistoryTableBody = $('#orderHistoryTableBody');
 
 window.loadOrderHistoryTable = function () {
     $orderHistoryTableBody.empty();
-
-    // Sort orders by date (newest first)
-    const sortedOrders = [...orders_db].sort((a, b) => new Date(b.date) - new Date(a.date));
-
-    sortedOrders.forEach(order => {
+    
+    orders_db.forEach(order => {
         const row = `
             <tr data-order-id="${order.orderId}">
                 <td>${order.orderId}</td>
@@ -23,4 +19,3 @@ window.loadOrderHistoryTable = function () {
         $orderHistoryTableBody.append(row);
     });
 }
-
