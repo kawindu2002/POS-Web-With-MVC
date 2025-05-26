@@ -6,6 +6,7 @@ export let customers_db = [
     { id: 'C002', name: 'Shanuka Sathsara', email: 'shanuka@gmail.com', phone: '0772367123', address: 'Panadura' },
 ];
 
+//Item DB
 export let items_db = [
     { code: 'I001', name: 'Laptop', description: 'High performance laptop', price: 1200.00, quantity: 15 },
     { code: 'I002', name: 'Mouse', description: 'Wireless ergonomic mouse', price: 25.50, quantity: 150 },
