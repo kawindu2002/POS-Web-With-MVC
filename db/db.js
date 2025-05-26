@@ -1,5 +1,6 @@
 // Db with test data
 
+//Customer DB
 export let customers_db = [
     { id: 'C001', name: 'Pasindu Malshan', email: 'pmalshan@gmail.com', phone: '0716236452', address: 'Galle' },
     { id: 'C002', name: 'Shanuka Sathsara', email: 'shanuka@gmail.com', phone: '0772367123', address: 'Panadura' },
@@ -13,4 +14,3 @@ export let items_db = [
 ];
 
 export let orders_db = [];
-
