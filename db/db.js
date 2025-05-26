@@ -14,4 +14,6 @@ export let items_db = [
     { code: 'I004', name: 'Monitor', description: '27-inch 4K monitor', price: 199.99, quantity: 10 },
 ];
 
+//Order DB
+
 export let orders_db = [];
